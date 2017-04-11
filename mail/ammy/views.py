@@ -6,13 +6,18 @@ from .models import student_info
 from django.shortcuts import render
 from PIL import Image
 import tesserocr
+from django.core.mail import send_mail, BadHeaderError
+from django.http import HttpResponse, HttpResponseRedirect
 
 
 
 
 # Create your views here.
 def index(request):
-    im= input('Enter image here')
-    image=Image.open(im)
-    t= tesserocr.image_to_text(image)
-    print t
+    return render(request, 'index.html')
+def form(request):
+    if request.method == 'POST':
+        form = NameForm(request.POST)
+        if form.is_valid():
+            return HttpResponseRedirect('/thanks/')
+    return render(request, 'form.html', {'form': form})
