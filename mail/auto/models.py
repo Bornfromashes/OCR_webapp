@@ -10,11 +10,8 @@ class student_info(models.Model):
     def __str__(self):
         return self.name
 
-class History(models.Model):
-
+class history(models.Model):
     Reg_no=models.ForeignKey('student_info', on_delete=models.CASCADE)
     date=models.DateTimeField(auto_now=True)
-
-class Admin(models.Model):
-    username=models.CharField(max_length=40)
-    password=models.CharField(max_length=20)
+    def was_published_recently(self):
+        return self.date >= timezone.now() - datetime.timedelta(days=1)

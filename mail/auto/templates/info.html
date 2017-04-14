@@ -1,0 +1,6 @@
+<h1>Enter the details</h1>
+<form action="{% url 'auto:info'  %}" method="post">
+{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Go" />
+</form>
